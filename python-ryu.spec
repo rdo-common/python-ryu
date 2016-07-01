@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -20,6 +20,7 @@ network management and control applications.
 
 %package -n     python2-%{pypi_name}
 Summary:        Component-based Software-defined Networking Framework
+%{?python_provide:%python_provide python2-%{pypi_name}}
 
 Requires:  python-eventlet
 Requires:  python-debtcollector
@@ -181,6 +182,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Fri Jul 01 2016 Matthias Runge <mrunge@redhat.com> - 4.3-2
+- add python_provides for python2 package
+
 * Thu Jun 23 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 4.3-1
 - Upstream 4.3
 - Enable python3 subpackage
