@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -182,6 +182,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Fri Jul 01 2016 Matthias Runge <mrunge@redhat.com> - 4.3-2
 - add python_provides for python2 package
 
