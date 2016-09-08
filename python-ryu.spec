@@ -4,9 +4,12 @@
 
 %global pypi_name ryu
 
+# FIXME: requires missing package tinyrpc
+%global with_check 0
+
 Name:           python-%{pypi_name}
 Version:        4.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -34,25 +37,29 @@ Requires:  python-six
 Requires:  python-webob
 Requires:  python-%{pypi_name}-common = %{version}-%{release}
 
-BuildRequires:  pylint
 BuildRequires:  python2-devel
-BuildRequires:  python-coverage
 BuildRequires:  python-debtcollector
 BuildRequires:  python-eventlet
-BuildRequires:  python-formencode
 BuildRequires:  python-greenlet
 BuildRequires:  python-lxml
-BuildRequires:  python-mock
 BuildRequires:  python-msgpack
-BuildRequires:  python-nose
 BuildRequires:  python-oslo-config
 BuildRequires:  python-paramiko
-BuildRequires:  python-pep8
 BuildRequires:  python-repoze-lru
 BuildRequires:  python-routes
 BuildRequires:  python-sphinx
 BuildRequires:  python-setuptools
 BuildRequires:  python-webob
+
+%if 0%{?with_check}
+BuildRequires:  pylint
+BuildRequires:  python-coverage
+BuildRequires:  python-formencode
+BuildRequires:  python-nose
+BuildRequires:  python-mock
+BuildRequires:  python-pep8
+BuildRequires:  python-tinyrpc
+%endif
 
 %description -n python2-%{pypi_name}
 Ryu provides software components with well defined API that make it easy for developers to create new
@@ -76,23 +83,27 @@ Requires:  python3-webob
 Requires:  python-%{pypi_name}-common = %{version}-%{release}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-coverage
 BuildRequires:  python3-debtcollector
 BuildRequires:  python3-eventlet
-BuildRequires:  python3-formencode
 BuildRequires:  python3-greenlet
 BuildRequires:  python3-lxml
-BuildRequires:  python3-mock
 BuildRequires:  python3-msgpack
-BuildRequires:  python3-nose
 BuildRequires:  python3-oslo-config
 BuildRequires:  python3-paramiko
-BuildRequires:  python3-pep8
 BuildRequires:  python3-repoze-lru
 BuildRequires:  python3-routes
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-webob
+
+%if 0%{?with_check}
+BuildRequires:  python3-coverage
+BuildRequires:  python3-formencode
+BuildRequires:  python3-mock
+BuildRequires:  python3-nose
+BuildRequires:  python3-pep8
+BuildRequires:  python3-tinyrpc
+%endif
 
 %description -n python3-%{pypi_name}
 Ryu provides software components with well defined API that make it easy for developers to create new
@@ -144,12 +155,13 @@ done;
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{pypi_name}
 mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildroot}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf
 
+%if 0%{?with_check}
 %check
-# FIXME: requires missing package tinyrpc
-#%if 0%{?with_python3}
-#%{__python3} setup.py test
-#%endif
-#%{__python2} setup.py test
+%if 0%{?with_python3}
+%{__python3} setup.py test
+%endif
+%{__python2} setup.py test
+%endif
 
 %files -n     python2-%{pypi_name}
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
@@ -182,6 +194,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Wed Sep 07 2016 Arie Bregman <abregman@redhat.com> - 4.3-4
+- Moved tests related lines to depend on with_check
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.3-3
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
