@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -194,6 +194,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 4.3-5
+- Rebuild for Python 3.6
+
 * Wed Sep 07 2016 Arie Bregman <abregman@redhat.com> - 4.3-4
 - Moved tests related lines to depend on with_check
 
