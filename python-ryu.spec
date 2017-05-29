@@ -4,11 +4,11 @@
 
 %global pypi_name ryu
 
-%global with_check 0
+%global with_check 1
 
 Name:           python-%{pypi_name}
 Version:        4.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -61,6 +61,7 @@ BuildRequires:  python-formencode
 BuildRequires:  python-nose
 BuildRequires:  python-mock
 BuildRequires:  python-pep8
+BuildRequires:  python-tinyrpc
 %endif
 
 %description -n python2-%{pypi_name}
@@ -77,9 +78,7 @@ Requires:  python3-debtcollector
 Requires:  python3-lxml
 Requires:  python3-msgpack
 Requires:  python3-netaddr
-# python3 missing in openvswitch RPM package:
-# https://bugzilla.redhat.com/show_bug.cgi?id=1412694
-#Requires:  python3-openvswitch
+Requires:  python3-openvswitch
 Requires:  python3-oslo-config
 Requires:  python3-paramiko
 Requires:  python3-routes
@@ -94,6 +93,7 @@ BuildRequires:  python3-eventlet
 BuildRequires:  python3-greenlet
 BuildRequires:  python3-lxml
 BuildRequires:  python3-msgpack
+BuildRequires:  python3-openvswitch
 BuildRequires:  python3-oslo-config
 BuildRequires:  python3-paramiko
 BuildRequires:  python3-repoze-lru
@@ -132,6 +132,14 @@ This package contains common data between python 2 and 3 versions
 rm -rf %{pypi_name}.egg-info
 # drop deps in egginfo, let rpm handle them
 rm tools/*-requires
+rm tools/install_venv.py
+# Remove non-working tests (internet connection needed)
+rm -vf %{pypi_name}/tests/unit/test_requirements.py
+# Remove pip usage (used only in test_requirements.py)
+sed -i '/^from pip/d' ryu/utils.py
+# Remove docker based tests (internet connection needed)
+rm -rf %{pypi_name}/tests/integrated/bgp
+rm -rf %{pypi_name}/tests/integrated/common
 
 %build
 %py2_build
@@ -163,9 +171,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 %if 0%{?with_check}
 %check
 %if 0%{?with_python3}
-%{__python3} setup.py test
+# Tests without virtualenv (N) and without PEP8 tests (P)
+PYTHON=%{__python3} ./run_tests.sh -N -P
 %endif
-%{__python2} setup.py test
+PYTHON=%{__python2} ./run_tests.sh -N -P
 %endif
 
 %files -n     python2-%{pypi_name}
@@ -199,6 +208,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Mon May 29 2017 Lumír Balhar <lbalhar@redhat.com> - 4.13-2
+- Tests enabled
+
 * Mon May 29 2017 Alan Pevec <alan.pevec@redhat.com> 4.13-1
 - Update to 4.13
 - Add missing dependencies
