@@ -4,12 +4,11 @@
 
 %global pypi_name ryu
 
-# FIXME: requires missing package tinyrpc
 %global with_check 0
 
 Name:           python-%{pypi_name}
-Version:        4.3
-Release:        6%{?dist}
+Version:        4.13
+Release:        1%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -30,10 +29,12 @@ Requires:  python-debtcollector
 Requires:  python-lxml
 Requires:  python-msgpack
 Requires:  python-netaddr
+Requires:  python-openvswitch
 Requires:  python-oslo-config
 Requires:  python-paramiko
 Requires:  python-routes
 Requires:  python-six
+Requires:  python-tinyrpc
 Requires:  python-webob
 Requires:  python-%{pypi_name}-common = %{version}-%{release}
 
@@ -43,11 +44,13 @@ BuildRequires:  python-eventlet
 BuildRequires:  python-greenlet
 BuildRequires:  python-lxml
 BuildRequires:  python-msgpack
+BuildRequires:  python-openvswitch
 BuildRequires:  python-oslo-config
 BuildRequires:  python-paramiko
 BuildRequires:  python-repoze-lru
 BuildRequires:  python-routes
 BuildRequires:  python-sphinx
+BuildRequires:  python-tinyrpc
 BuildRequires:  python-setuptools
 BuildRequires:  python-webob
 
@@ -58,7 +61,6 @@ BuildRequires:  python-formencode
 BuildRequires:  python-nose
 BuildRequires:  python-mock
 BuildRequires:  python-pep8
-BuildRequires:  python-tinyrpc
 %endif
 
 %description -n python2-%{pypi_name}
@@ -75,10 +77,14 @@ Requires:  python3-debtcollector
 Requires:  python3-lxml
 Requires:  python3-msgpack
 Requires:  python3-netaddr
+# python3 missing in openvswitch RPM package:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1412694
+#Requires:  python3-openvswitch
 Requires:  python3-oslo-config
 Requires:  python3-paramiko
 Requires:  python3-routes
 Requires:  python3-six
+Requires:  python3-tinyrpc
 Requires:  python3-webob
 Requires:  python-%{pypi_name}-common = %{version}-%{release}
 
@@ -94,6 +100,7 @@ BuildRequires:  python3-repoze-lru
 BuildRequires:  python3-routes
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-tinyrpc
 BuildRequires:  python3-webob
 
 %if 0%{?with_check}
@@ -102,7 +109,6 @@ BuildRequires:  python3-formencode
 BuildRequires:  python3-mock
 BuildRequires:  python3-nose
 BuildRequires:  python3-pep8
-BuildRequires:  python3-tinyrpc
 %endif
 
 %description -n python3-%{pypi_name}
@@ -124,9 +130,8 @@ This package contains common data between python 2 and 3 versions
 %prep
 %setup -q -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
-
-# FIXME: pip tries to download a specific version of pylint when running tests
-sed -i 's/==0.25.0//' tools/test-requires
+# drop deps in egginfo, let rpm handle them
+rm tools/*-requires
 
 %build
 %py2_build
@@ -194,6 +199,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/%{pypi_name}/%{pypi_name}.conf %{buildro
 
 
 %changelog
+* Mon May 29 2017 Alan Pevec <alan.pevec@redhat.com> 4.13-1
+- Update to 4.13
+- Add missing dependencies
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
