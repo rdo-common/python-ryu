@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -208,6 +208,9 @@ PYTHON=%{__python2} ./run_tests.sh -N -P
 
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Mon May 29 2017 Lumír Balhar <lbalhar@redhat.com> - 4.13-2
 - Tests enabled
 
