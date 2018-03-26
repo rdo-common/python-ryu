@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -24,44 +24,44 @@ network management and control applications.
 Summary:        Component-based Software-defined Networking Framework
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
-Requires:  python-eventlet
-Requires:  python-debtcollector
-Requires:  python-lxml
-Requires:  python-msgpack
-Requires:  python-netaddr
-Requires:  python-openvswitch
-Requires:  python-oslo-config
-Requires:  python-paramiko
-Requires:  python-routes
-Requires:  python-six
-Requires:  python-tinyrpc
-Requires:  python-webob
+Requires:  python2-eventlet
+Requires:  python2-debtcollector
+Requires:  python2-lxml
+Requires:  python2-msgpack
+Requires:  python2-netaddr
+Requires:  python2-openvswitch
+Requires:  python2-oslo-config
+Requires:  python2-paramiko
+Requires:  python2-routes
+Requires:  python2-six
+Requires:  python2-tinyrpc
+Requires:  python2-webob
 Requires:  python-%{pypi_name}-common = %{version}-%{release}
 
 BuildRequires:  python2-devel
-BuildRequires:  python-debtcollector
-BuildRequires:  python-eventlet
-BuildRequires:  python-greenlet
-BuildRequires:  python-lxml
-BuildRequires:  python-msgpack
-BuildRequires:  python-openvswitch
-BuildRequires:  python-oslo-config
-BuildRequires:  python-paramiko
-BuildRequires:  python-repoze-lru
-BuildRequires:  python-routes
-BuildRequires:  python-sphinx
-BuildRequires:  python-tinyrpc
-BuildRequires:  python-setuptools
-BuildRequires:  python-webob
+BuildRequires:  python2-debtcollector
+BuildRequires:  python2-eventlet
+BuildRequires:  python2-greenlet
+BuildRequires:  python2-lxml
+BuildRequires:  python2-msgpack
+BuildRequires:  python2-openvswitch
+BuildRequires:  python2-oslo-config
+BuildRequires:  python2-paramiko
+BuildRequires:  python2-repoze-lru
+BuildRequires:  python2-routes
+BuildRequires:  python2-sphinx
+BuildRequires:  python2-tinyrpc
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-webob
 
 %if 0%{?with_check}
 BuildRequires:  pylint
-BuildRequires:  python-coverage
-BuildRequires:  python-formencode
-BuildRequires:  python-nose
-BuildRequires:  python-mock
-BuildRequires:  python-pep8
-BuildRequires:  python-tinyrpc
+BuildRequires:  python2-coverage
+BuildRequires:  python2-formencode
+BuildRequires:  python2-nose
+BuildRequires:  python2-mock
+BuildRequires:  python2-pep8
+BuildRequires:  python2-tinyrpc
 %endif
 
 %description -n python2-%{pypi_name}
@@ -208,6 +208,10 @@ PYTHON=%{__python2} ./run_tests.sh -N -P
 
 
 %changelog
+* Mon Mar 26 2018 Iryna Shcherbina <ishcherb@redhat.com> - 4.15-3
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
