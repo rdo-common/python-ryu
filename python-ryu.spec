@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -208,6 +208,9 @@ PYTHON=%{__python2} ./run_tests.sh -N -P
 
 
 %changelog
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.15-4
+- Rebuilt for Python 3.7
+
 * Mon Mar 26 2018 Iryna Shcherbina <ishcherb@redhat.com> - 4.15-3
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
