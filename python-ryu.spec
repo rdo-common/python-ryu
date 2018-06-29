@@ -7,8 +7,8 @@
 %global with_check 1
 
 Name:           python-%{pypi_name}
-Version:        4.15
-Release:        4%{?dist}
+Version:        4.25
+Release:        1%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
 License:        Apache-2.0
@@ -208,6 +208,9 @@ PYTHON=%{__python2} ./run_tests.sh -N -P
 
 
 %changelog
+* Tue Jul 03 2018 Alan Pevec <alan.pevec@redhat.com> 4.25-1
+- Update to 4.25
+
 * Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.15-4
 - Rebuilt for Python 3.7
 
