@@ -7,7 +7,7 @@
 %global with_check 1
 
 Name:           python-%{pypi_name}
-Version:        4.25
+Version:        4.26
 Release:        1%{?dist}
 Summary:        Component-based Software-defined Networking Framework
 
@@ -208,6 +208,9 @@ PYTHON=%{__python2} ./run_tests.sh -N -P
 
 
 %changelog
+* Wed Aug 08 2018 Slawek Kaplonski <skaplons@redhat.com> 4.26-1
+- Update to 4.26
+
 * Tue Jul 03 2018 Alan Pevec <alan.pevec@redhat.com> 4.25-1
 - Update to 4.25
 
