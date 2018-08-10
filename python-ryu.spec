@@ -26,7 +26,7 @@ Summary:        Component-based Software-defined Networking Framework
 
 Requires:  python2-eventlet
 Requires:  python2-debtcollector
-Requires:  python2-lxml
+Requires:  python-lxml
 Requires:  python2-msgpack
 Requires:  python2-netaddr
 Requires:  python2-openvswitch
@@ -42,12 +42,12 @@ BuildRequires:  python2-devel
 BuildRequires:  python2-debtcollector
 BuildRequires:  python2-eventlet
 BuildRequires:  python2-greenlet
-BuildRequires:  python2-lxml
+BuildRequires:  python-lxml
 BuildRequires:  python2-msgpack
 BuildRequires:  python2-openvswitch
 BuildRequires:  python2-oslo-config
 BuildRequires:  python2-paramiko
-BuildRequires:  python2-repoze-lru
+BuildRequires:  python-repoze-lru
 BuildRequires:  python2-routes
 BuildRequires:  python2-sphinx
 BuildRequires:  python2-tinyrpc
@@ -55,12 +55,10 @@ BuildRequires:  python2-setuptools
 BuildRequires:  python2-webob
 
 %if 0%{?with_check}
-BuildRequires:  pylint
 BuildRequires:  python2-coverage
-BuildRequires:  python2-formencode
+BuildRequires:  python-formencode
 BuildRequires:  python2-nose
 BuildRequires:  python2-mock
-BuildRequires:  python2-pep8
 BuildRequires:  python2-tinyrpc
 %endif
 
@@ -108,7 +106,6 @@ BuildRequires:  python3-coverage
 BuildRequires:  python3-formencode
 BuildRequires:  python3-mock
 BuildRequires:  python3-nose
-BuildRequires:  python3-pep8
 %endif
 
 %description -n python3-%{pypi_name}
